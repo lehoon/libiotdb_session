@@ -36,7 +36,7 @@ make -j2
 
 #thrift c++库位置 thrift/lib/cpp/.libs
 
-cd ../iotdb_session
+cd ..
 
 if [ -d build ]; then
 	rm -rf build

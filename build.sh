@@ -19,6 +19,14 @@ function green_log() {
 cd thrift
 make clean
 
+if [ ! -x bootstrap.sh ]; then
+	chmod +x ./bootstrap.sh
+fi
+
+if [ ! -e ./configure ]; then
+	./bootstrap.sh
+fi
+
 if [ ! -x ./configure ]; then
 	chmod +x ./configure
 fi

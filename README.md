@@ -7,14 +7,14 @@
 1. 从 GitHub 克隆代码：
 
 ```bash
-git clone https://github.com/<your-org>/libiotdb_session.git
-cd libiotdb_session
+git clone https://github.com/lehoon/libiotdb_session.git
 ```
 
-2. 更新子模块：
+2. 下载thrift库：
 
 ```bash
-git submodule update --init --recursive
+cd libiotdb_session
+git clone https://github.com/apache/thrift.git
 ```
 
 3. 执行 build.sh 脚本编译：

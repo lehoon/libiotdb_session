@@ -944,6 +944,193 @@ uint32_t IClientRPCService_executeLastDataQueryV2_presult::read(::apache::thrift
 }
 
 
+IClientRPCService_executeFastLastDataQueryForOnePrefixPath_args::~IClientRPCService_executeFastLastDataQueryForOnePrefixPath_args() noexcept {
+}
+
+
+uint32_t IClientRPCService_executeFastLastDataQueryForOnePrefixPath_args::read(::apache::thrift::protocol::TProtocol* iprot) {
+
+  ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
+  uint32_t xfer = 0;
+  std::string fname;
+  ::apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using ::apache::thrift::protocol::TProtocolException;
+
+
+  while (true)
+  {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+        if (ftype == ::apache::thrift::protocol::T_STRUCT) {
+          xfer += this->req.read(iprot);
+          this->__isset.req = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      default:
+        xfer += iprot->skip(ftype);
+        break;
+    }
+    xfer += iprot->readFieldEnd();
+  }
+
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+uint32_t IClientRPCService_executeFastLastDataQueryForOnePrefixPath_args::write(::apache::thrift::protocol::TProtocol* oprot) const {
+  uint32_t xfer = 0;
+  ::apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
+  xfer += oprot->writeStructBegin("IClientRPCService_executeFastLastDataQueryForOnePrefixPath_args");
+
+  xfer += oprot->writeFieldBegin("req", ::apache::thrift::protocol::T_STRUCT, 1);
+  xfer += this->req.write(oprot);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldStop();
+  xfer += oprot->writeStructEnd();
+  return xfer;
+}
+
+
+IClientRPCService_executeFastLastDataQueryForOnePrefixPath_pargs::~IClientRPCService_executeFastLastDataQueryForOnePrefixPath_pargs() noexcept {
+}
+
+
+uint32_t IClientRPCService_executeFastLastDataQueryForOnePrefixPath_pargs::write(::apache::thrift::protocol::TProtocol* oprot) const {
+  uint32_t xfer = 0;
+  ::apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
+  xfer += oprot->writeStructBegin("IClientRPCService_executeFastLastDataQueryForOnePrefixPath_pargs");
+
+  xfer += oprot->writeFieldBegin("req", ::apache::thrift::protocol::T_STRUCT, 1);
+  xfer += (*(this->req)).write(oprot);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldStop();
+  xfer += oprot->writeStructEnd();
+  return xfer;
+}
+
+
+IClientRPCService_executeFastLastDataQueryForOnePrefixPath_result::~IClientRPCService_executeFastLastDataQueryForOnePrefixPath_result() noexcept {
+}
+
+
+uint32_t IClientRPCService_executeFastLastDataQueryForOnePrefixPath_result::read(::apache::thrift::protocol::TProtocol* iprot) {
+
+  ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
+  uint32_t xfer = 0;
+  std::string fname;
+  ::apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using ::apache::thrift::protocol::TProtocolException;
+
+
+  while (true)
+  {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 0:
+        if (ftype == ::apache::thrift::protocol::T_STRUCT) {
+          xfer += this->success.read(iprot);
+          this->__isset.success = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      default:
+        xfer += iprot->skip(ftype);
+        break;
+    }
+    xfer += iprot->readFieldEnd();
+  }
+
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+uint32_t IClientRPCService_executeFastLastDataQueryForOnePrefixPath_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
+
+  uint32_t xfer = 0;
+
+  xfer += oprot->writeStructBegin("IClientRPCService_executeFastLastDataQueryForOnePrefixPath_result");
+
+  if (this->__isset.success) {
+    xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_STRUCT, 0);
+    xfer += this->success.write(oprot);
+    xfer += oprot->writeFieldEnd();
+  }
+  xfer += oprot->writeFieldStop();
+  xfer += oprot->writeStructEnd();
+  return xfer;
+}
+
+
+IClientRPCService_executeFastLastDataQueryForOnePrefixPath_presult::~IClientRPCService_executeFastLastDataQueryForOnePrefixPath_presult() noexcept {
+}
+
+
+uint32_t IClientRPCService_executeFastLastDataQueryForOnePrefixPath_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
+
+  ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
+  uint32_t xfer = 0;
+  std::string fname;
+  ::apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using ::apache::thrift::protocol::TProtocolException;
+
+
+  while (true)
+  {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 0:
+        if (ftype == ::apache::thrift::protocol::T_STRUCT) {
+          xfer += (*(this->success)).read(iprot);
+          this->__isset.success = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      default:
+        xfer += iprot->skip(ftype);
+        break;
+    }
+    xfer += iprot->readFieldEnd();
+  }
+
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+
 IClientRPCService_executeFastLastDataQueryForOneDeviceV2_args::~IClientRPCService_executeFastLastDataQueryForOneDeviceV2_args() noexcept {
 }
 
@@ -4903,14 +5090,14 @@ uint32_t IClientRPCService_deleteTimeseries_args::read(::apache::thrift::protoco
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             this->path.clear();
-            uint32_t _size663;
-            ::apache::thrift::protocol::TType _etype666;
-            xfer += iprot->readListBegin(_etype666, _size663);
-            this->path.resize(_size663);
-            uint32_t _i667;
-            for (_i667 = 0; _i667 < _size663; ++_i667)
+            uint32_t _size695;
+            ::apache::thrift::protocol::TType _etype698;
+            xfer += iprot->readListBegin(_etype698, _size695);
+            this->path.resize(_size695);
+            uint32_t _i699;
+            for (_i699 = 0; _i699 < _size695; ++_i699)
             {
-              xfer += iprot->readString(this->path[_i667]);
+              xfer += iprot->readString(this->path[_i699]);
             }
             xfer += iprot->readListEnd();
           }
@@ -4943,10 +5130,10 @@ uint32_t IClientRPCService_deleteTimeseries_args::write(::apache::thrift::protoc
   xfer += oprot->writeFieldBegin("path", ::apache::thrift::protocol::T_LIST, 2);
   {
     xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRING, static_cast<uint32_t>(this->path.size()));
-    std::vector<std::string> ::const_iterator _iter668;
-    for (_iter668 = this->path.begin(); _iter668 != this->path.end(); ++_iter668)
+    std::vector<std::string> ::const_iterator _iter700;
+    for (_iter700 = this->path.begin(); _iter700 != this->path.end(); ++_iter700)
     {
-      xfer += oprot->writeString((*_iter668));
+      xfer += oprot->writeString((*_iter700));
     }
     xfer += oprot->writeListEnd();
   }
@@ -4974,10 +5161,10 @@ uint32_t IClientRPCService_deleteTimeseries_pargs::write(::apache::thrift::proto
   xfer += oprot->writeFieldBegin("path", ::apache::thrift::protocol::T_LIST, 2);
   {
     xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRING, static_cast<uint32_t>((*(this->path)).size()));
-    std::vector<std::string> ::const_iterator _iter669;
-    for (_iter669 = (*(this->path)).begin(); _iter669 != (*(this->path)).end(); ++_iter669)
+    std::vector<std::string> ::const_iterator _iter701;
+    for (_iter701 = (*(this->path)).begin(); _iter701 != (*(this->path)).end(); ++_iter701)
     {
-      xfer += oprot->writeString((*_iter669));
+      xfer += oprot->writeString((*_iter701));
     }
     xfer += oprot->writeListEnd();
   }
@@ -5134,14 +5321,14 @@ uint32_t IClientRPCService_deleteStorageGroups_args::read(::apache::thrift::prot
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             this->storageGroup.clear();
-            uint32_t _size670;
-            ::apache::thrift::protocol::TType _etype673;
-            xfer += iprot->readListBegin(_etype673, _size670);
-            this->storageGroup.resize(_size670);
-            uint32_t _i674;
-            for (_i674 = 0; _i674 < _size670; ++_i674)
+            uint32_t _size702;
+            ::apache::thrift::protocol::TType _etype705;
+            xfer += iprot->readListBegin(_etype705, _size702);
+            this->storageGroup.resize(_size702);
+            uint32_t _i706;
+            for (_i706 = 0; _i706 < _size702; ++_i706)
             {
-              xfer += iprot->readString(this->storageGroup[_i674]);
+              xfer += iprot->readString(this->storageGroup[_i706]);
             }
             xfer += iprot->readListEnd();
           }
@@ -5174,10 +5361,10 @@ uint32_t IClientRPCService_deleteStorageGroups_args::write(::apache::thrift::pro
   xfer += oprot->writeFieldBegin("storageGroup", ::apache::thrift::protocol::T_LIST, 2);
   {
     xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRING, static_cast<uint32_t>(this->storageGroup.size()));
-    std::vector<std::string> ::const_iterator _iter675;
-    for (_iter675 = this->storageGroup.begin(); _iter675 != this->storageGroup.end(); ++_iter675)
+    std::vector<std::string> ::const_iterator _iter707;
+    for (_iter707 = this->storageGroup.begin(); _iter707 != this->storageGroup.end(); ++_iter707)
     {
-      xfer += oprot->writeString((*_iter675));
+      xfer += oprot->writeString((*_iter707));
     }
     xfer += oprot->writeListEnd();
   }
@@ -5205,10 +5392,10 @@ uint32_t IClientRPCService_deleteStorageGroups_pargs::write(::apache::thrift::pr
   xfer += oprot->writeFieldBegin("storageGroup", ::apache::thrift::protocol::T_LIST, 2);
   {
     xfer += oprot->writeListBegin(::apache::thrift::protocol::T_STRING, static_cast<uint32_t>((*(this->storageGroup)).size()));
-    std::vector<std::string> ::const_iterator _iter676;
-    for (_iter676 = (*(this->storageGroup)).begin(); _iter676 != (*(this->storageGroup)).end(); ++_iter676)
+    std::vector<std::string> ::const_iterator _iter708;
+    for (_iter708 = (*(this->storageGroup)).begin(); _iter708 != (*(this->storageGroup)).end(); ++_iter708)
     {
-      xfer += oprot->writeString((*_iter676));
+      xfer += oprot->writeString((*_iter708));
     }
     xfer += oprot->writeListEnd();
   }
@@ -12655,6 +12842,64 @@ void IClientRPCServiceClient::recv_executeLastDataQueryV2(TSExecuteStatementResp
   throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "executeLastDataQueryV2 failed: unknown result");
 }
 
+void IClientRPCServiceClient::executeFastLastDataQueryForOnePrefixPath(TSExecuteStatementResp& _return, const TSFastLastDataQueryForOnePrefixPathReq& req)
+{
+  send_executeFastLastDataQueryForOnePrefixPath(req);
+  recv_executeFastLastDataQueryForOnePrefixPath(_return);
+}
+
+void IClientRPCServiceClient::send_executeFastLastDataQueryForOnePrefixPath(const TSFastLastDataQueryForOnePrefixPathReq& req)
+{
+  int32_t cseqid = 0;
+  oprot_->writeMessageBegin("executeFastLastDataQueryForOnePrefixPath", ::apache::thrift::protocol::T_CALL, cseqid);
+
+  IClientRPCService_executeFastLastDataQueryForOnePrefixPath_pargs args;
+  args.req = &req;
+  args.write(oprot_);
+
+  oprot_->writeMessageEnd();
+  oprot_->getTransport()->writeEnd();
+  oprot_->getTransport()->flush();
+}
+
+void IClientRPCServiceClient::recv_executeFastLastDataQueryForOnePrefixPath(TSExecuteStatementResp& _return)
+{
+
+  int32_t rseqid = 0;
+  std::string fname;
+  ::apache::thrift::protocol::TMessageType mtype;
+
+  iprot_->readMessageBegin(fname, mtype, rseqid);
+  if (mtype == ::apache::thrift::protocol::T_EXCEPTION) {
+    ::apache::thrift::TApplicationException x;
+    x.read(iprot_);
+    iprot_->readMessageEnd();
+    iprot_->getTransport()->readEnd();
+    throw x;
+  }
+  if (mtype != ::apache::thrift::protocol::T_REPLY) {
+    iprot_->skip(::apache::thrift::protocol::T_STRUCT);
+    iprot_->readMessageEnd();
+    iprot_->getTransport()->readEnd();
+  }
+  if (fname.compare("executeFastLastDataQueryForOnePrefixPath") != 0) {
+    iprot_->skip(::apache::thrift::protocol::T_STRUCT);
+    iprot_->readMessageEnd();
+    iprot_->getTransport()->readEnd();
+  }
+  IClientRPCService_executeFastLastDataQueryForOnePrefixPath_presult result;
+  result.success = &_return;
+  result.read(iprot_);
+  iprot_->readMessageEnd();
+  iprot_->getTransport()->readEnd();
+
+  if (result.__isset.success) {
+    // _return pointer has now been filled
+    return;
+  }
+  throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "executeFastLastDataQueryForOnePrefixPath failed: unknown result");
+}
+
 void IClientRPCServiceClient::executeFastLastDataQueryForOneDeviceV2(TSExecuteStatementResp& _return, const TSFastLastDataQueryForOneDeviceReq& req)
 {
   send_executeFastLastDataQueryForOneDeviceV2(req);
@@ -16481,6 +16726,60 @@ void IClientRPCServiceProcessor::process_executeLastDataQueryV2(int32_t seqid, :
   }
 }
 
+void IClientRPCServiceProcessor::process_executeFastLastDataQueryForOnePrefixPath(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext)
+{
+  void* ctx = nullptr;
+  if (this->eventHandler_.get() != nullptr) {
+    ctx = this->eventHandler_->getContext("IClientRPCService.executeFastLastDataQueryForOnePrefixPath", callContext);
+  }
+  ::apache::thrift::TProcessorContextFreer freer(this->eventHandler_.get(), ctx, "IClientRPCService.executeFastLastDataQueryForOnePrefixPath");
+
+  if (this->eventHandler_.get() != nullptr) {
+    this->eventHandler_->preRead(ctx, "IClientRPCService.executeFastLastDataQueryForOnePrefixPath");
+  }
+
+  IClientRPCService_executeFastLastDataQueryForOnePrefixPath_args args;
+  args.read(iprot);
+  iprot->readMessageEnd();
+  uint32_t bytes = iprot->getTransport()->readEnd();
+
+  if (this->eventHandler_.get() != nullptr) {
+    this->eventHandler_->postRead(ctx, "IClientRPCService.executeFastLastDataQueryForOnePrefixPath", bytes);
+  }
+
+  IClientRPCService_executeFastLastDataQueryForOnePrefixPath_result result;
+  try {
+    iface_->executeFastLastDataQueryForOnePrefixPath(result.success, args.req);
+    result.__isset.success = true;
+  } catch (const std::exception& e) {
+    if (this->eventHandler_.get() != nullptr) {
+      this->eventHandler_->handlerError(ctx, "IClientRPCService.executeFastLastDataQueryForOnePrefixPath");
+    }
+
+    ::apache::thrift::TApplicationException x(e.what());
+    oprot->writeMessageBegin("executeFastLastDataQueryForOnePrefixPath", ::apache::thrift::protocol::T_EXCEPTION, seqid);
+    x.write(oprot);
+    oprot->writeMessageEnd();
+    oprot->getTransport()->writeEnd();
+    oprot->getTransport()->flush();
+    return;
+  }
+
+  if (this->eventHandler_.get() != nullptr) {
+    this->eventHandler_->preWrite(ctx, "IClientRPCService.executeFastLastDataQueryForOnePrefixPath");
+  }
+
+  oprot->writeMessageBegin("executeFastLastDataQueryForOnePrefixPath", ::apache::thrift::protocol::T_REPLY, seqid);
+  result.write(oprot);
+  oprot->writeMessageEnd();
+  bytes = oprot->getTransport()->writeEnd();
+  oprot->getTransport()->flush();
+
+  if (this->eventHandler_.get() != nullptr) {
+    this->eventHandler_->postWrite(ctx, "IClientRPCService.executeFastLastDataQueryForOnePrefixPath", bytes);
+  }
+}
+
 void IClientRPCServiceProcessor::process_executeFastLastDataQueryForOneDeviceV2(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext)
 {
   void* ctx = nullptr;
@@ -20193,6 +20492,90 @@ void IClientRPCServiceConcurrentClient::recv_executeLastDataQueryV2(TSExecuteSta
       }
       // in a bad state, don't commit
       throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "executeLastDataQueryV2 failed: unknown result");
+    }
+    // seqid != rseqid
+    this->sync_->updatePending(fname, mtype, rseqid);
+
+    // this will temporarily unlock the readMutex, and let other clients get work done
+    this->sync_->waitForWork(seqid);
+  } // end while(true)
+}
+
+void IClientRPCServiceConcurrentClient::executeFastLastDataQueryForOnePrefixPath(TSExecuteStatementResp& _return, const TSFastLastDataQueryForOnePrefixPathReq& req)
+{
+  int32_t seqid = send_executeFastLastDataQueryForOnePrefixPath(req);
+  recv_executeFastLastDataQueryForOnePrefixPath(_return, seqid);
+}
+
+int32_t IClientRPCServiceConcurrentClient::send_executeFastLastDataQueryForOnePrefixPath(const TSFastLastDataQueryForOnePrefixPathReq& req)
+{
+  int32_t cseqid = this->sync_->generateSeqId();
+  ::apache::thrift::async::TConcurrentSendSentry sentry(this->sync_.get());
+  oprot_->writeMessageBegin("executeFastLastDataQueryForOnePrefixPath", ::apache::thrift::protocol::T_CALL, cseqid);
+
+  IClientRPCService_executeFastLastDataQueryForOnePrefixPath_pargs args;
+  args.req = &req;
+  args.write(oprot_);
+
+  oprot_->writeMessageEnd();
+  oprot_->getTransport()->writeEnd();
+  oprot_->getTransport()->flush();
+
+  sentry.commit();
+  return cseqid;
+}
+
+void IClientRPCServiceConcurrentClient::recv_executeFastLastDataQueryForOnePrefixPath(TSExecuteStatementResp& _return, const int32_t seqid)
+{
+
+  int32_t rseqid = 0;
+  std::string fname;
+  ::apache::thrift::protocol::TMessageType mtype;
+
+  // the read mutex gets dropped and reacquired as part of waitForWork()
+  // The destructor of this sentry wakes up other clients
+  ::apache::thrift::async::TConcurrentRecvSentry sentry(this->sync_.get(), seqid);
+
+  while(true) {
+    if(!this->sync_->getPending(fname, mtype, rseqid)) {
+      iprot_->readMessageBegin(fname, mtype, rseqid);
+    }
+    if(seqid == rseqid) {
+      if (mtype == ::apache::thrift::protocol::T_EXCEPTION) {
+        ::apache::thrift::TApplicationException x;
+        x.read(iprot_);
+        iprot_->readMessageEnd();
+        iprot_->getTransport()->readEnd();
+        sentry.commit();
+        throw x;
+      }
+      if (mtype != ::apache::thrift::protocol::T_REPLY) {
+        iprot_->skip(::apache::thrift::protocol::T_STRUCT);
+        iprot_->readMessageEnd();
+        iprot_->getTransport()->readEnd();
+      }
+      if (fname.compare("executeFastLastDataQueryForOnePrefixPath") != 0) {
+        iprot_->skip(::apache::thrift::protocol::T_STRUCT);
+        iprot_->readMessageEnd();
+        iprot_->getTransport()->readEnd();
+
+        // in a bad state, don't commit
+        using ::apache::thrift::protocol::TProtocolException;
+        throw TProtocolException(TProtocolException::INVALID_DATA);
+      }
+      IClientRPCService_executeFastLastDataQueryForOnePrefixPath_presult result;
+      result.success = &_return;
+      result.read(iprot_);
+      iprot_->readMessageEnd();
+      iprot_->getTransport()->readEnd();
+
+      if (result.__isset.success) {
+        // _return pointer has now been filled
+        sentry.commit();
+        return;
+      }
+      // in a bad state, don't commit
+      throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "executeFastLastDataQueryForOnePrefixPath failed: unknown result");
     }
     // seqid != rseqid
     this->sync_->updatePending(fname, mtype, rseqid);

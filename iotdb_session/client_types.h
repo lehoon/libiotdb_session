@@ -113,6 +113,8 @@ class TSRawDataQueryReq;
 
 class TSLastDataQueryReq;
 
+class TSFastLastDataQueryForOnePrefixPathReq;
+
 class TSFastLastDataQueryForOneDeviceReq;
 
 class TSAggregationQueryReq;
@@ -365,7 +367,7 @@ void swap(TSTracingInfo &a, TSTracingInfo &b);
 std::ostream& operator<<(std::ostream& out, const TSTracingInfo& obj);
 
 typedef struct _TSExecuteStatementResp__isset {
-  _TSExecuteStatementResp__isset() : queryId(false), columns(false), operationType(false), ignoreTimeStamp(false), dataTypeList(false), queryDataSet(false), nonAlignQueryDataSet(false), columnNameIndexMap(false), sgColumns(false), aliasColumns(false), tracingInfo(false), queryResult(false), moreData(false) {}
+  _TSExecuteStatementResp__isset() : queryId(false), columns(false), operationType(false), ignoreTimeStamp(false), dataTypeList(false), queryDataSet(false), nonAlignQueryDataSet(false), columnNameIndexMap(false), sgColumns(false), aliasColumns(false), tracingInfo(false), queryResult(false), moreData(false), database(false), tableModel(false), columnIndex2TsBlockColumnIndexList(false) {}
   bool queryId :1;
   bool columns :1;
   bool operationType :1;
@@ -379,6 +381,9 @@ typedef struct _TSExecuteStatementResp__isset {
   bool tracingInfo :1;
   bool queryResult :1;
   bool moreData :1;
+  bool database :1;
+  bool tableModel :1;
+  bool columnIndex2TsBlockColumnIndexList :1;
 } _TSExecuteStatementResp__isset;
 
 class TSExecuteStatementResp : public virtual ::apache::thrift::TBase {
@@ -386,7 +391,7 @@ class TSExecuteStatementResp : public virtual ::apache::thrift::TBase {
 
   TSExecuteStatementResp(const TSExecuteStatementResp&);
   TSExecuteStatementResp& operator=(const TSExecuteStatementResp&);
-  TSExecuteStatementResp() : queryId(0), operationType(), ignoreTimeStamp(0), moreData(0) {
+  TSExecuteStatementResp() : queryId(0), operationType(), ignoreTimeStamp(0), moreData(0), database(), tableModel(0) {
   }
 
   virtual ~TSExecuteStatementResp() noexcept;
@@ -404,6 +409,9 @@ class TSExecuteStatementResp : public virtual ::apache::thrift::TBase {
   TSTracingInfo tracingInfo;
   std::vector<std::string>  queryResult;
   bool moreData;
+  std::string database;
+  bool tableModel;
+  std::vector<int32_t>  columnIndex2TsBlockColumnIndexList;
 
   _TSExecuteStatementResp__isset __isset;
 
@@ -434,6 +442,12 @@ class TSExecuteStatementResp : public virtual ::apache::thrift::TBase {
   void __set_queryResult(const std::vector<std::string> & val);
 
   void __set_moreData(const bool val);
+
+  void __set_database(const std::string& val);
+
+  void __set_tableModel(const bool val);
+
+  void __set_columnIndex2TsBlockColumnIndexList(const std::vector<int32_t> & val);
 
   bool operator == (const TSExecuteStatementResp & rhs) const
   {
@@ -490,6 +504,18 @@ class TSExecuteStatementResp : public virtual ::apache::thrift::TBase {
     if (__isset.moreData != rhs.__isset.moreData)
       return false;
     else if (__isset.moreData && !(moreData == rhs.moreData))
+      return false;
+    if (__isset.database != rhs.__isset.database)
+      return false;
+    else if (__isset.database && !(database == rhs.database))
+      return false;
+    if (__isset.tableModel != rhs.__isset.tableModel)
+      return false;
+    else if (__isset.tableModel && !(tableModel == rhs.tableModel))
+      return false;
+    if (__isset.columnIndex2TsBlockColumnIndexList != rhs.__isset.columnIndex2TsBlockColumnIndexList)
+      return false;
+    else if (__isset.columnIndex2TsBlockColumnIndexList && !(columnIndex2TsBlockColumnIndexList == rhs.columnIndex2TsBlockColumnIndexList))
       return false;
     return true;
   }
@@ -950,8 +976,9 @@ void swap(TSCloseOperationReq &a, TSCloseOperationReq &b);
 std::ostream& operator<<(std::ostream& out, const TSCloseOperationReq& obj);
 
 typedef struct _TSFetchResultsReq__isset {
-  _TSFetchResultsReq__isset() : timeout(false) {}
+  _TSFetchResultsReq__isset() : timeout(false), statementId(false) {}
   bool timeout :1;
+  bool statementId :1;
 } _TSFetchResultsReq__isset;
 
 class TSFetchResultsReq : public virtual ::apache::thrift::TBase {
@@ -959,7 +986,7 @@ class TSFetchResultsReq : public virtual ::apache::thrift::TBase {
 
   TSFetchResultsReq(const TSFetchResultsReq&);
   TSFetchResultsReq& operator=(const TSFetchResultsReq&);
-  TSFetchResultsReq() : sessionId(0), statement(), fetchSize(0), queryId(0), isAlign(0), timeout(0) {
+  TSFetchResultsReq() : sessionId(0), statement(), fetchSize(0), queryId(0), isAlign(0), timeout(0), statementId(0) {
   }
 
   virtual ~TSFetchResultsReq() noexcept;
@@ -969,6 +996,7 @@ class TSFetchResultsReq : public virtual ::apache::thrift::TBase {
   int64_t queryId;
   bool isAlign;
   int64_t timeout;
+  int64_t statementId;
 
   _TSFetchResultsReq__isset __isset;
 
@@ -983,6 +1011,8 @@ class TSFetchResultsReq : public virtual ::apache::thrift::TBase {
   void __set_isAlign(const bool val);
 
   void __set_timeout(const int64_t val);
+
+  void __set_statementId(const int64_t val);
 
   bool operator == (const TSFetchResultsReq & rhs) const
   {
@@ -999,6 +1029,10 @@ class TSFetchResultsReq : public virtual ::apache::thrift::TBase {
     if (__isset.timeout != rhs.__isset.timeout)
       return false;
     else if (__isset.timeout && !(timeout == rhs.timeout))
+      return false;
+    if (__isset.statementId != rhs.__isset.statementId)
+      return false;
+    else if (__isset.statementId && !(statementId == rhs.statementId))
       return false;
     return true;
   }
@@ -1303,8 +1337,10 @@ void swap(TSSetTimeZoneReq &a, TSSetTimeZoneReq &b);
 std::ostream& operator<<(std::ostream& out, const TSSetTimeZoneReq& obj);
 
 typedef struct _TSInsertRecordReq__isset {
-  _TSInsertRecordReq__isset() : isAligned(false) {}
+  _TSInsertRecordReq__isset() : isAligned(false), isWriteToTable(false), columnCategoryies(false) {}
   bool isAligned :1;
+  bool isWriteToTable :1;
+  bool columnCategoryies :1;
 } _TSInsertRecordReq__isset;
 
 class TSInsertRecordReq : public virtual ::apache::thrift::TBase {
@@ -1312,7 +1348,7 @@ class TSInsertRecordReq : public virtual ::apache::thrift::TBase {
 
   TSInsertRecordReq(const TSInsertRecordReq&);
   TSInsertRecordReq& operator=(const TSInsertRecordReq&);
-  TSInsertRecordReq() : sessionId(0), prefixPath(), values(), timestamp(0), isAligned(0) {
+  TSInsertRecordReq() : sessionId(0), prefixPath(), values(), timestamp(0), isAligned(0), isWriteToTable(0) {
   }
 
   virtual ~TSInsertRecordReq() noexcept;
@@ -1322,6 +1358,8 @@ class TSInsertRecordReq : public virtual ::apache::thrift::TBase {
   std::string values;
   int64_t timestamp;
   bool isAligned;
+  bool isWriteToTable;
+  std::vector<int8_t>  columnCategoryies;
 
   _TSInsertRecordReq__isset __isset;
 
@@ -1336,6 +1374,10 @@ class TSInsertRecordReq : public virtual ::apache::thrift::TBase {
   void __set_timestamp(const int64_t val);
 
   void __set_isAligned(const bool val);
+
+  void __set_isWriteToTable(const bool val);
+
+  void __set_columnCategoryies(const std::vector<int8_t> & val);
 
   bool operator == (const TSInsertRecordReq & rhs) const
   {
@@ -1352,6 +1394,14 @@ class TSInsertRecordReq : public virtual ::apache::thrift::TBase {
     if (__isset.isAligned != rhs.__isset.isAligned)
       return false;
     else if (__isset.isAligned && !(isAligned == rhs.isAligned))
+      return false;
+    if (__isset.isWriteToTable != rhs.__isset.isWriteToTable)
+      return false;
+    else if (__isset.isWriteToTable && !(isWriteToTable == rhs.isWriteToTable))
+      return false;
+    if (__isset.columnCategoryies != rhs.__isset.columnCategoryies)
+      return false;
+    else if (__isset.columnCategoryies && !(columnCategoryies == rhs.columnCategoryies))
       return false;
     return true;
   }
@@ -1449,8 +1499,13 @@ void swap(TSInsertStringRecordReq &a, TSInsertStringRecordReq &b);
 std::ostream& operator<<(std::ostream& out, const TSInsertStringRecordReq& obj);
 
 typedef struct _TSInsertTabletReq__isset {
-  _TSInsertTabletReq__isset() : isAligned(false) {}
+  _TSInsertTabletReq__isset() : isAligned(false), writeToTable(false), columnCategories(false), isCompressed(false), encodingTypes(false), compressType(false) {}
   bool isAligned :1;
+  bool writeToTable :1;
+  bool columnCategories :1;
+  bool isCompressed :1;
+  bool encodingTypes :1;
+  bool compressType :1;
 } _TSInsertTabletReq__isset;
 
 class TSInsertTabletReq : public virtual ::apache::thrift::TBase {
@@ -1458,7 +1513,7 @@ class TSInsertTabletReq : public virtual ::apache::thrift::TBase {
 
   TSInsertTabletReq(const TSInsertTabletReq&);
   TSInsertTabletReq& operator=(const TSInsertTabletReq&);
-  TSInsertTabletReq() : sessionId(0), prefixPath(), values(), timestamps(), size(0), isAligned(0) {
+  TSInsertTabletReq() : sessionId(0), prefixPath(), values(), timestamps(), size(0), isAligned(0), writeToTable(0), isCompressed(0), compressType(0) {
   }
 
   virtual ~TSInsertTabletReq() noexcept;
@@ -1470,6 +1525,11 @@ class TSInsertTabletReq : public virtual ::apache::thrift::TBase {
   std::vector<int32_t>  types;
   int32_t size;
   bool isAligned;
+  bool writeToTable;
+  std::vector<int8_t>  columnCategories;
+  bool isCompressed;
+  std::vector<int8_t>  encodingTypes;
+  int8_t compressType;
 
   _TSInsertTabletReq__isset __isset;
 
@@ -1488,6 +1548,16 @@ class TSInsertTabletReq : public virtual ::apache::thrift::TBase {
   void __set_size(const int32_t val);
 
   void __set_isAligned(const bool val);
+
+  void __set_writeToTable(const bool val);
+
+  void __set_columnCategories(const std::vector<int8_t> & val);
+
+  void __set_isCompressed(const bool val);
+
+  void __set_encodingTypes(const std::vector<int8_t> & val);
+
+  void __set_compressType(const int8_t val);
 
   bool operator == (const TSInsertTabletReq & rhs) const
   {
@@ -1508,6 +1578,26 @@ class TSInsertTabletReq : public virtual ::apache::thrift::TBase {
     if (__isset.isAligned != rhs.__isset.isAligned)
       return false;
     else if (__isset.isAligned && !(isAligned == rhs.isAligned))
+      return false;
+    if (__isset.writeToTable != rhs.__isset.writeToTable)
+      return false;
+    else if (__isset.writeToTable && !(writeToTable == rhs.writeToTable))
+      return false;
+    if (__isset.columnCategories != rhs.__isset.columnCategories)
+      return false;
+    else if (__isset.columnCategories && !(columnCategories == rhs.columnCategories))
+      return false;
+    if (__isset.isCompressed != rhs.__isset.isCompressed)
+      return false;
+    else if (__isset.isCompressed && !(isCompressed == rhs.isCompressed))
+      return false;
+    if (__isset.encodingTypes != rhs.__isset.encodingTypes)
+      return false;
+    else if (__isset.encodingTypes && !(encodingTypes == rhs.encodingTypes))
+      return false;
+    if (__isset.compressType != rhs.__isset.compressType)
+      return false;
+    else if (__isset.compressType && !(compressType == rhs.compressType))
       return false;
     return true;
   }
@@ -2313,6 +2403,89 @@ void swap(TSLastDataQueryReq &a, TSLastDataQueryReq &b);
 
 std::ostream& operator<<(std::ostream& out, const TSLastDataQueryReq& obj);
 
+typedef struct _TSFastLastDataQueryForOnePrefixPathReq__isset {
+  _TSFastLastDataQueryForOnePrefixPathReq__isset() : fetchSize(false), enableRedirectQuery(false), jdbcQuery(false), timeout(false) {}
+  bool fetchSize :1;
+  bool enableRedirectQuery :1;
+  bool jdbcQuery :1;
+  bool timeout :1;
+} _TSFastLastDataQueryForOnePrefixPathReq__isset;
+
+class TSFastLastDataQueryForOnePrefixPathReq : public virtual ::apache::thrift::TBase {
+ public:
+
+  TSFastLastDataQueryForOnePrefixPathReq(const TSFastLastDataQueryForOnePrefixPathReq&);
+  TSFastLastDataQueryForOnePrefixPathReq& operator=(const TSFastLastDataQueryForOnePrefixPathReq&);
+  TSFastLastDataQueryForOnePrefixPathReq() : sessionId(0), fetchSize(0), statementId(0), enableRedirectQuery(0), jdbcQuery(0), timeout(0) {
+  }
+
+  virtual ~TSFastLastDataQueryForOnePrefixPathReq() noexcept;
+  int64_t sessionId;
+  std::vector<std::string>  prefixes;
+  int32_t fetchSize;
+  int64_t statementId;
+  bool enableRedirectQuery;
+  bool jdbcQuery;
+  int64_t timeout;
+
+  _TSFastLastDataQueryForOnePrefixPathReq__isset __isset;
+
+  void __set_sessionId(const int64_t val);
+
+  void __set_prefixes(const std::vector<std::string> & val);
+
+  void __set_fetchSize(const int32_t val);
+
+  void __set_statementId(const int64_t val);
+
+  void __set_enableRedirectQuery(const bool val);
+
+  void __set_jdbcQuery(const bool val);
+
+  void __set_timeout(const int64_t val);
+
+  bool operator == (const TSFastLastDataQueryForOnePrefixPathReq & rhs) const
+  {
+    if (!(sessionId == rhs.sessionId))
+      return false;
+    if (!(prefixes == rhs.prefixes))
+      return false;
+    if (__isset.fetchSize != rhs.__isset.fetchSize)
+      return false;
+    else if (__isset.fetchSize && !(fetchSize == rhs.fetchSize))
+      return false;
+    if (!(statementId == rhs.statementId))
+      return false;
+    if (__isset.enableRedirectQuery != rhs.__isset.enableRedirectQuery)
+      return false;
+    else if (__isset.enableRedirectQuery && !(enableRedirectQuery == rhs.enableRedirectQuery))
+      return false;
+    if (__isset.jdbcQuery != rhs.__isset.jdbcQuery)
+      return false;
+    else if (__isset.jdbcQuery && !(jdbcQuery == rhs.jdbcQuery))
+      return false;
+    if (__isset.timeout != rhs.__isset.timeout)
+      return false;
+    else if (__isset.timeout && !(timeout == rhs.timeout))
+      return false;
+    return true;
+  }
+  bool operator != (const TSFastLastDataQueryForOnePrefixPathReq &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const TSFastLastDataQueryForOnePrefixPathReq & ) const;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+  virtual void printTo(std::ostream& out) const;
+};
+
+void swap(TSFastLastDataQueryForOnePrefixPathReq &a, TSFastLastDataQueryForOnePrefixPathReq &b);
+
+std::ostream& operator<<(std::ostream& out, const TSFastLastDataQueryForOnePrefixPathReq& obj);
+
 typedef struct _TSFastLastDataQueryForOneDeviceReq__isset {
   _TSFastLastDataQueryForOneDeviceReq__isset() : fetchSize(false), enableRedirectQuery(false), jdbcQuery(false), timeout(false), legalPathNodes(false) {}
   bool fetchSize :1;
@@ -2527,13 +2700,14 @@ void swap(TSAggregationQueryReq &a, TSAggregationQueryReq &b);
 std::ostream& operator<<(std::ostream& out, const TSAggregationQueryReq& obj);
 
 typedef struct _TSGroupByQueryIntervalReq__isset {
-  _TSGroupByQueryIntervalReq__isset() : database(false), startTime(false), endTime(false), interval(false), fetchSize(false), timeout(false) {}
+  _TSGroupByQueryIntervalReq__isset() : database(false), startTime(false), endTime(false), interval(false), fetchSize(false), timeout(false), isAligned(false) {}
   bool database :1;
   bool startTime :1;
   bool endTime :1;
   bool interval :1;
   bool fetchSize :1;
   bool timeout :1;
+  bool isAligned :1;
 } _TSGroupByQueryIntervalReq__isset;
 
 class TSGroupByQueryIntervalReq : public virtual ::apache::thrift::TBase {
@@ -2541,7 +2715,7 @@ class TSGroupByQueryIntervalReq : public virtual ::apache::thrift::TBase {
 
   TSGroupByQueryIntervalReq(const TSGroupByQueryIntervalReq&);
   TSGroupByQueryIntervalReq& operator=(const TSGroupByQueryIntervalReq&);
-  TSGroupByQueryIntervalReq() : sessionId(0), statementId(0), device(), measurement(), dataType(0), aggregationType(( ::TAggregationType::type)0), database(), startTime(0), endTime(0), interval(0), fetchSize(0), timeout(0) {
+  TSGroupByQueryIntervalReq() : sessionId(0), statementId(0), device(), measurement(), dataType(0), aggregationType(( ::TAggregationType::type)0), database(), startTime(0), endTime(0), interval(0), fetchSize(0), timeout(0), isAligned(0) {
   }
 
   virtual ~TSGroupByQueryIntervalReq() noexcept;
@@ -2561,6 +2735,7 @@ class TSGroupByQueryIntervalReq : public virtual ::apache::thrift::TBase {
   int64_t interval;
   int32_t fetchSize;
   int64_t timeout;
+  bool isAligned;
 
   _TSGroupByQueryIntervalReq__isset __isset;
 
@@ -2587,6 +2762,8 @@ class TSGroupByQueryIntervalReq : public virtual ::apache::thrift::TBase {
   void __set_fetchSize(const int32_t val);
 
   void __set_timeout(const int64_t val);
+
+  void __set_isAligned(const bool val);
 
   bool operator == (const TSGroupByQueryIntervalReq & rhs) const
   {
@@ -2625,6 +2802,10 @@ class TSGroupByQueryIntervalReq : public virtual ::apache::thrift::TBase {
     if (__isset.timeout != rhs.__isset.timeout)
       return false;
     else if (__isset.timeout && !(timeout == rhs.timeout))
+      return false;
+    if (__isset.isAligned != rhs.__isset.isAligned)
+      return false;
+    else if (__isset.isAligned && !(isAligned == rhs.isAligned))
       return false;
     return true;
   }

@@ -123,7 +123,16 @@ struct TAggregationType {
     VAR_SAMP = 19,
     MAX_BY = 20,
     MIN_BY = 21,
-    UDAF = 22
+    UDAF = 22,
+    FIRST = 23,
+    LAST = 24,
+    FIRST_BY = 25,
+    LAST_BY = 26,
+    MIN = 27,
+    MAX = 28,
+    COUNT_ALL = 29,
+    APPROX_COUNT_DISTINCT = 30,
+    APPROX_MOST_FREQUENT = 31
   };
 };
 
@@ -132,6 +141,50 @@ extern const std::map<int, const char*> _TAggregationType_VALUES_TO_NAMES;
 std::ostream& operator<<(std::ostream& out, const TAggregationType::type& val);
 
 std::string to_string(const TAggregationType::type& val);
+
+struct TrainingState {
+  enum type {
+    PENDING = 0,
+    RUNNING = 1,
+    FINISHED = 2,
+    FAILED = 3,
+    DROPPING = 4
+  };
+};
+
+extern const std::map<int, const char*> _TrainingState_VALUES_TO_NAMES;
+
+std::ostream& operator<<(std::ostream& out, const TrainingState::type& val);
+
+std::string to_string(const TrainingState::type& val);
+
+struct Model {
+  enum type {
+    TREE = 0,
+    TABLE = 1
+  };
+};
+
+extern const std::map<int, const char*> _Model_VALUES_TO_NAMES;
+
+std::ostream& operator<<(std::ostream& out, const Model::type& val);
+
+std::string to_string(const Model::type& val);
+
+struct FunctionType {
+  enum type {
+    NONE = 0,
+    SCALAR = 1,
+    AGGREGATE = 2,
+    TABLE = 3
+  };
+};
+
+extern const std::map<int, const char*> _FunctionType_VALUES_TO_NAMES;
+
+std::ostream& operator<<(std::ostream& out, const FunctionType::type& val);
+
+std::string to_string(const FunctionType::type& val);
 
 class TEndPoint;
 
@@ -151,7 +204,11 @@ class TConfigNodeLocation;
 
 class TDataNodeLocation;
 
+class TAINodeLocation;
+
 class TDataNodeConfiguration;
+
+class TAINodeConfiguration;
 
 class TFlushReq;
 
@@ -179,7 +236,11 @@ class TSetSpaceQuotaReq;
 
 class TSetThrottleQuotaReq;
 
+class TPipeHeartbeatResp;
+
 class TLicense;
+
+class TLoadSample;
 
 class TServiceProvider;
 
@@ -616,6 +677,47 @@ void swap(TDataNodeLocation &a, TDataNodeLocation &b);
 std::ostream& operator<<(std::ostream& out, const TDataNodeLocation& obj);
 
 
+class TAINodeLocation : public virtual ::apache::thrift::TBase {
+ public:
+
+  TAINodeLocation(const TAINodeLocation&);
+  TAINodeLocation& operator=(const TAINodeLocation&);
+  TAINodeLocation() : aiNodeId(0) {
+  }
+
+  virtual ~TAINodeLocation() noexcept;
+  int32_t aiNodeId;
+  TEndPoint internalEndPoint;
+
+  void __set_aiNodeId(const int32_t val);
+
+  void __set_internalEndPoint(const TEndPoint& val);
+
+  bool operator == (const TAINodeLocation & rhs) const
+  {
+    if (!(aiNodeId == rhs.aiNodeId))
+      return false;
+    if (!(internalEndPoint == rhs.internalEndPoint))
+      return false;
+    return true;
+  }
+  bool operator != (const TAINodeLocation &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const TAINodeLocation & ) const;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+  virtual void printTo(std::ostream& out) const;
+};
+
+void swap(TAINodeLocation &a, TAINodeLocation &b);
+
+std::ostream& operator<<(std::ostream& out, const TAINodeLocation& obj);
+
+
 class TDataNodeConfiguration : public virtual ::apache::thrift::TBase {
  public:
 
@@ -656,10 +758,52 @@ void swap(TDataNodeConfiguration &a, TDataNodeConfiguration &b);
 
 std::ostream& operator<<(std::ostream& out, const TDataNodeConfiguration& obj);
 
+
+class TAINodeConfiguration : public virtual ::apache::thrift::TBase {
+ public:
+
+  TAINodeConfiguration(const TAINodeConfiguration&);
+  TAINodeConfiguration& operator=(const TAINodeConfiguration&);
+  TAINodeConfiguration() {
+  }
+
+  virtual ~TAINodeConfiguration() noexcept;
+  TAINodeLocation location;
+  TNodeResource resource;
+
+  void __set_location(const TAINodeLocation& val);
+
+  void __set_resource(const TNodeResource& val);
+
+  bool operator == (const TAINodeConfiguration & rhs) const
+  {
+    if (!(location == rhs.location))
+      return false;
+    if (!(resource == rhs.resource))
+      return false;
+    return true;
+  }
+  bool operator != (const TAINodeConfiguration &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const TAINodeConfiguration & ) const;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+  virtual void printTo(std::ostream& out) const;
+};
+
+void swap(TAINodeConfiguration &a, TAINodeConfiguration &b);
+
+std::ostream& operator<<(std::ostream& out, const TAINodeConfiguration& obj);
+
 typedef struct _TFlushReq__isset {
-  _TFlushReq__isset() : isSeq(false), storageGroups(false) {}
+  _TFlushReq__isset() : isSeq(false), storageGroups(false), regionIds(false) {}
   bool isSeq :1;
   bool storageGroups :1;
+  bool regionIds :1;
 } _TFlushReq__isset;
 
 class TFlushReq : public virtual ::apache::thrift::TBase {
@@ -673,12 +817,15 @@ class TFlushReq : public virtual ::apache::thrift::TBase {
   virtual ~TFlushReq() noexcept;
   std::string isSeq;
   std::vector<std::string>  storageGroups;
+  std::vector<std::string>  regionIds;
 
   _TFlushReq__isset __isset;
 
   void __set_isSeq(const std::string& val);
 
   void __set_storageGroups(const std::vector<std::string> & val);
+
+  void __set_regionIds(const std::vector<std::string> & val);
 
   bool operator == (const TFlushReq & rhs) const
   {
@@ -689,6 +836,10 @@ class TFlushReq : public virtual ::apache::thrift::TBase {
     if (__isset.storageGroups != rhs.__isset.storageGroups)
       return false;
     else if (__isset.storageGroups && !(storageGroups == rhs.storageGroups))
+      return false;
+    if (__isset.regionIds != rhs.__isset.regionIds)
+      return false;
+    else if (__isset.regionIds && !(regionIds == rhs.regionIds))
       return false;
     return true;
   }
@@ -1233,6 +1384,71 @@ void swap(TSetThrottleQuotaReq &a, TSetThrottleQuotaReq &b);
 
 std::ostream& operator<<(std::ostream& out, const TSetThrottleQuotaReq& obj);
 
+typedef struct _TPipeHeartbeatResp__isset {
+  _TPipeHeartbeatResp__isset() : pipeCompletedList(false), pipeRemainingEventCountList(false), pipeRemainingTimeList(false) {}
+  bool pipeCompletedList :1;
+  bool pipeRemainingEventCountList :1;
+  bool pipeRemainingTimeList :1;
+} _TPipeHeartbeatResp__isset;
+
+class TPipeHeartbeatResp : public virtual ::apache::thrift::TBase {
+ public:
+
+  TPipeHeartbeatResp(const TPipeHeartbeatResp&);
+  TPipeHeartbeatResp& operator=(const TPipeHeartbeatResp&);
+  TPipeHeartbeatResp() {
+  }
+
+  virtual ~TPipeHeartbeatResp() noexcept;
+  std::vector<std::string>  pipeMetaList;
+  std::vector<bool>  pipeCompletedList;
+  std::vector<int64_t>  pipeRemainingEventCountList;
+  std::vector<double>  pipeRemainingTimeList;
+
+  _TPipeHeartbeatResp__isset __isset;
+
+  void __set_pipeMetaList(const std::vector<std::string> & val);
+
+  void __set_pipeCompletedList(const std::vector<bool> & val);
+
+  void __set_pipeRemainingEventCountList(const std::vector<int64_t> & val);
+
+  void __set_pipeRemainingTimeList(const std::vector<double> & val);
+
+  bool operator == (const TPipeHeartbeatResp & rhs) const
+  {
+    if (!(pipeMetaList == rhs.pipeMetaList))
+      return false;
+    if (__isset.pipeCompletedList != rhs.__isset.pipeCompletedList)
+      return false;
+    else if (__isset.pipeCompletedList && !(pipeCompletedList == rhs.pipeCompletedList))
+      return false;
+    if (__isset.pipeRemainingEventCountList != rhs.__isset.pipeRemainingEventCountList)
+      return false;
+    else if (__isset.pipeRemainingEventCountList && !(pipeRemainingEventCountList == rhs.pipeRemainingEventCountList))
+      return false;
+    if (__isset.pipeRemainingTimeList != rhs.__isset.pipeRemainingTimeList)
+      return false;
+    else if (__isset.pipeRemainingTimeList && !(pipeRemainingTimeList == rhs.pipeRemainingTimeList))
+      return false;
+    return true;
+  }
+  bool operator != (const TPipeHeartbeatResp &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const TPipeHeartbeatResp & ) const;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+  virtual void printTo(std::ostream& out) const;
+};
+
+void swap(TPipeHeartbeatResp &a, TPipeHeartbeatResp &b);
+
+std::ostream& operator<<(std::ostream& out, const TPipeHeartbeatResp& obj);
+
 
 class TLicense : public virtual ::apache::thrift::TBase {
  public:
@@ -1305,12 +1521,63 @@ void swap(TLicense &a, TLicense &b);
 std::ostream& operator<<(std::ostream& out, const TLicense& obj);
 
 
+class TLoadSample : public virtual ::apache::thrift::TBase {
+ public:
+
+  TLoadSample(const TLoadSample&);
+  TLoadSample& operator=(const TLoadSample&);
+  TLoadSample() : cpuUsageRate(0), memoryUsageRate(0), diskUsageRate(0), freeDiskSpace(0) {
+  }
+
+  virtual ~TLoadSample() noexcept;
+  double cpuUsageRate;
+  double memoryUsageRate;
+  double diskUsageRate;
+  double freeDiskSpace;
+
+  void __set_cpuUsageRate(const double val);
+
+  void __set_memoryUsageRate(const double val);
+
+  void __set_diskUsageRate(const double val);
+
+  void __set_freeDiskSpace(const double val);
+
+  bool operator == (const TLoadSample & rhs) const
+  {
+    if (!(cpuUsageRate == rhs.cpuUsageRate))
+      return false;
+    if (!(memoryUsageRate == rhs.memoryUsageRate))
+      return false;
+    if (!(diskUsageRate == rhs.diskUsageRate))
+      return false;
+    if (!(freeDiskSpace == rhs.freeDiskSpace))
+      return false;
+    return true;
+  }
+  bool operator != (const TLoadSample &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const TLoadSample & ) const;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+  virtual void printTo(std::ostream& out) const;
+};
+
+void swap(TLoadSample &a, TLoadSample &b);
+
+std::ostream& operator<<(std::ostream& out, const TLoadSample& obj);
+
+
 class TServiceProvider : public virtual ::apache::thrift::TBase {
  public:
 
   TServiceProvider(const TServiceProvider&);
   TServiceProvider& operator=(const TServiceProvider&);
-  TServiceProvider() : serviceType((TServiceType::type)0) {
+  TServiceProvider() : serviceType((TServiceType::type)0), nodeId(0) {
   }
 
   virtual ~TServiceProvider() noexcept;
@@ -1320,16 +1587,21 @@ class TServiceProvider : public virtual ::apache::thrift::TBase {
    * @see TServiceType
    */
   TServiceType::type serviceType;
+  int32_t nodeId;
 
   void __set_endPoint(const TEndPoint& val);
 
   void __set_serviceType(const TServiceType::type val);
+
+  void __set_nodeId(const int32_t val);
 
   bool operator == (const TServiceProvider & rhs) const
   {
     if (!(endPoint == rhs.endPoint))
       return false;
     if (!(serviceType == rhs.serviceType))
+      return false;
+    if (!(nodeId == rhs.nodeId))
       return false;
     return true;
   }

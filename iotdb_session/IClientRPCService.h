@@ -27,6 +27,7 @@ class IClientRPCServiceIf {
   virtual void executeStatementV2(TSExecuteStatementResp& _return, const TSExecuteStatementReq& req) = 0;
   virtual void executeRawDataQueryV2(TSExecuteStatementResp& _return, const TSRawDataQueryReq& req) = 0;
   virtual void executeLastDataQueryV2(TSExecuteStatementResp& _return, const TSLastDataQueryReq& req) = 0;
+  virtual void executeFastLastDataQueryForOnePrefixPath(TSExecuteStatementResp& _return, const TSFastLastDataQueryForOnePrefixPathReq& req) = 0;
   virtual void executeFastLastDataQueryForOneDeviceV2(TSExecuteStatementResp& _return, const TSFastLastDataQueryForOneDeviceReq& req) = 0;
   virtual void executeAggregationQueryV2(TSExecuteStatementResp& _return, const TSAggregationQueryReq& req) = 0;
   virtual void executeGroupByQueryIntervalQuery(TSExecuteStatementResp& _return, const TSGroupByQueryIntervalReq& req) = 0;
@@ -134,6 +135,9 @@ class IClientRPCServiceNull : virtual public IClientRPCServiceIf {
     return;
   }
   void executeLastDataQueryV2(TSExecuteStatementResp& /* _return */, const TSLastDataQueryReq& /* req */) {
+    return;
+  }
+  void executeFastLastDataQueryForOnePrefixPath(TSExecuteStatementResp& /* _return */, const TSFastLastDataQueryForOnePrefixPathReq& /* req */) {
     return;
   }
   void executeFastLastDataQueryForOneDeviceV2(TSExecuteStatementResp& /* _return */, const TSFastLastDataQueryForOneDeviceReq& /* req */) {
@@ -837,6 +841,110 @@ class IClientRPCService_executeLastDataQueryV2_presult {
   TSExecuteStatementResp* success;
 
   _IClientRPCService_executeLastDataQueryV2_presult__isset __isset;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+
+};
+
+typedef struct _IClientRPCService_executeFastLastDataQueryForOnePrefixPath_args__isset {
+  _IClientRPCService_executeFastLastDataQueryForOnePrefixPath_args__isset() : req(false) {}
+  bool req :1;
+} _IClientRPCService_executeFastLastDataQueryForOnePrefixPath_args__isset;
+
+class IClientRPCService_executeFastLastDataQueryForOnePrefixPath_args {
+ public:
+
+  IClientRPCService_executeFastLastDataQueryForOnePrefixPath_args(const IClientRPCService_executeFastLastDataQueryForOnePrefixPath_args&);
+  IClientRPCService_executeFastLastDataQueryForOnePrefixPath_args& operator=(const IClientRPCService_executeFastLastDataQueryForOnePrefixPath_args&);
+  IClientRPCService_executeFastLastDataQueryForOnePrefixPath_args() {
+  }
+
+  virtual ~IClientRPCService_executeFastLastDataQueryForOnePrefixPath_args() noexcept;
+  TSFastLastDataQueryForOnePrefixPathReq req;
+
+  _IClientRPCService_executeFastLastDataQueryForOnePrefixPath_args__isset __isset;
+
+  void __set_req(const TSFastLastDataQueryForOnePrefixPathReq& val);
+
+  bool operator == (const IClientRPCService_executeFastLastDataQueryForOnePrefixPath_args & rhs) const
+  {
+    if (!(req == rhs.req))
+      return false;
+    return true;
+  }
+  bool operator != (const IClientRPCService_executeFastLastDataQueryForOnePrefixPath_args &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const IClientRPCService_executeFastLastDataQueryForOnePrefixPath_args & ) const;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+
+class IClientRPCService_executeFastLastDataQueryForOnePrefixPath_pargs {
+ public:
+
+
+  virtual ~IClientRPCService_executeFastLastDataQueryForOnePrefixPath_pargs() noexcept;
+  const TSFastLastDataQueryForOnePrefixPathReq* req;
+
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+typedef struct _IClientRPCService_executeFastLastDataQueryForOnePrefixPath_result__isset {
+  _IClientRPCService_executeFastLastDataQueryForOnePrefixPath_result__isset() : success(false) {}
+  bool success :1;
+} _IClientRPCService_executeFastLastDataQueryForOnePrefixPath_result__isset;
+
+class IClientRPCService_executeFastLastDataQueryForOnePrefixPath_result {
+ public:
+
+  IClientRPCService_executeFastLastDataQueryForOnePrefixPath_result(const IClientRPCService_executeFastLastDataQueryForOnePrefixPath_result&);
+  IClientRPCService_executeFastLastDataQueryForOnePrefixPath_result& operator=(const IClientRPCService_executeFastLastDataQueryForOnePrefixPath_result&);
+  IClientRPCService_executeFastLastDataQueryForOnePrefixPath_result() {
+  }
+
+  virtual ~IClientRPCService_executeFastLastDataQueryForOnePrefixPath_result() noexcept;
+  TSExecuteStatementResp success;
+
+  _IClientRPCService_executeFastLastDataQueryForOnePrefixPath_result__isset __isset;
+
+  void __set_success(const TSExecuteStatementResp& val);
+
+  bool operator == (const IClientRPCService_executeFastLastDataQueryForOnePrefixPath_result & rhs) const
+  {
+    if (!(success == rhs.success))
+      return false;
+    return true;
+  }
+  bool operator != (const IClientRPCService_executeFastLastDataQueryForOnePrefixPath_result &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const IClientRPCService_executeFastLastDataQueryForOnePrefixPath_result & ) const;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+typedef struct _IClientRPCService_executeFastLastDataQueryForOnePrefixPath_presult__isset {
+  _IClientRPCService_executeFastLastDataQueryForOnePrefixPath_presult__isset() : success(false) {}
+  bool success :1;
+} _IClientRPCService_executeFastLastDataQueryForOnePrefixPath_presult__isset;
+
+class IClientRPCService_executeFastLastDataQueryForOnePrefixPath_presult {
+ public:
+
+
+  virtual ~IClientRPCService_executeFastLastDataQueryForOnePrefixPath_presult() noexcept;
+  TSExecuteStatementResp* success;
+
+  _IClientRPCService_executeFastLastDataQueryForOnePrefixPath_presult__isset __isset;
 
   uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
 
@@ -7194,6 +7302,9 @@ class IClientRPCServiceClient : virtual public IClientRPCServiceIf {
   void executeLastDataQueryV2(TSExecuteStatementResp& _return, const TSLastDataQueryReq& req);
   void send_executeLastDataQueryV2(const TSLastDataQueryReq& req);
   void recv_executeLastDataQueryV2(TSExecuteStatementResp& _return);
+  void executeFastLastDataQueryForOnePrefixPath(TSExecuteStatementResp& _return, const TSFastLastDataQueryForOnePrefixPathReq& req);
+  void send_executeFastLastDataQueryForOnePrefixPath(const TSFastLastDataQueryForOnePrefixPathReq& req);
+  void recv_executeFastLastDataQueryForOnePrefixPath(TSExecuteStatementResp& _return);
   void executeFastLastDataQueryForOneDeviceV2(TSExecuteStatementResp& _return, const TSFastLastDataQueryForOneDeviceReq& req);
   void send_executeFastLastDataQueryForOneDeviceV2(const TSFastLastDataQueryForOneDeviceReq& req);
   void recv_executeFastLastDataQueryForOneDeviceV2(TSExecuteStatementResp& _return);
@@ -7400,6 +7511,7 @@ class IClientRPCServiceProcessor : public ::apache::thrift::TDispatchProcessor {
   void process_executeStatementV2(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_executeRawDataQueryV2(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_executeLastDataQueryV2(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
+  void process_executeFastLastDataQueryForOnePrefixPath(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_executeFastLastDataQueryForOneDeviceV2(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_executeAggregationQueryV2(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_executeGroupByQueryIntervalQuery(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
@@ -7469,6 +7581,7 @@ class IClientRPCServiceProcessor : public ::apache::thrift::TDispatchProcessor {
     processMap_["executeStatementV2"] = &IClientRPCServiceProcessor::process_executeStatementV2;
     processMap_["executeRawDataQueryV2"] = &IClientRPCServiceProcessor::process_executeRawDataQueryV2;
     processMap_["executeLastDataQueryV2"] = &IClientRPCServiceProcessor::process_executeLastDataQueryV2;
+    processMap_["executeFastLastDataQueryForOnePrefixPath"] = &IClientRPCServiceProcessor::process_executeFastLastDataQueryForOnePrefixPath;
     processMap_["executeFastLastDataQueryForOneDeviceV2"] = &IClientRPCServiceProcessor::process_executeFastLastDataQueryForOneDeviceV2;
     processMap_["executeAggregationQueryV2"] = &IClientRPCServiceProcessor::process_executeAggregationQueryV2;
     processMap_["executeGroupByQueryIntervalQuery"] = &IClientRPCServiceProcessor::process_executeGroupByQueryIntervalQuery;
@@ -7605,6 +7718,16 @@ class IClientRPCServiceMultiface : virtual public IClientRPCServiceIf {
       ifaces_[i]->executeLastDataQueryV2(_return, req);
     }
     ifaces_[i]->executeLastDataQueryV2(_return, req);
+    return;
+  }
+
+  void executeFastLastDataQueryForOnePrefixPath(TSExecuteStatementResp& _return, const TSFastLastDataQueryForOnePrefixPathReq& req) {
+    size_t sz = ifaces_.size();
+    size_t i = 0;
+    for (; i < (sz - 1); ++i) {
+      ifaces_[i]->executeFastLastDataQueryForOnePrefixPath(_return, req);
+    }
+    ifaces_[i]->executeFastLastDataQueryForOnePrefixPath(_return, req);
     return;
   }
 
@@ -8267,6 +8390,9 @@ class IClientRPCServiceConcurrentClient : virtual public IClientRPCServiceIf {
   void executeLastDataQueryV2(TSExecuteStatementResp& _return, const TSLastDataQueryReq& req);
   int32_t send_executeLastDataQueryV2(const TSLastDataQueryReq& req);
   void recv_executeLastDataQueryV2(TSExecuteStatementResp& _return, const int32_t seqid);
+  void executeFastLastDataQueryForOnePrefixPath(TSExecuteStatementResp& _return, const TSFastLastDataQueryForOnePrefixPathReq& req);
+  int32_t send_executeFastLastDataQueryForOnePrefixPath(const TSFastLastDataQueryForOnePrefixPathReq& req);
+  void recv_executeFastLastDataQueryForOnePrefixPath(TSExecuteStatementResp& _return, const int32_t seqid);
   void executeFastLastDataQueryForOneDeviceV2(TSExecuteStatementResp& _return, const TSFastLastDataQueryForOneDeviceReq& req);
   int32_t send_executeFastLastDataQueryForOneDeviceV2(const TSFastLastDataQueryForOneDeviceReq& req);
   void recv_executeFastLastDataQueryForOneDeviceV2(TSExecuteStatementResp& _return, const int32_t seqid);
